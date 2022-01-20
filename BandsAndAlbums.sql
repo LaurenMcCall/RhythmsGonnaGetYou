@@ -73,6 +73,38 @@ VALUES ('The Runaways', false, '1976-06-01', 13);
 INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
 VALUES ('Beautiful Garbage', false, '2001-10-01', 12);
 
+-- insert songs
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (7, 'Cherry Lips','3:11', 9);
 
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (1, 'Cherry Bomb', '2:18', 8);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (4, 'SOS', '3:22', 7);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (1, 'Mamma Mia', '3:33', 7);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (5, 'Knowing Me Knowing You', '4:01', 6);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (11, 'Fernando', '4:12', 6);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (1, 'Independent Women Pt 1', '3:41', 5);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (12, 'Say My Name', '4:31', 4);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (2, 'Creep', '4:28', 3);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (1, 'Wannabe', '2:53', 1);
+
+INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
+VALUES (10, 'The Lady is a Vamp', '3:10', 2);
 
 
