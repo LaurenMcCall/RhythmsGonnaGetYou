@@ -1,3 +1,4 @@
+-- create the tables
 CREATE TABLE "Bands"(
 "Id" SERIAL PRIMARY KEY,
 "Name" TEXT,
@@ -25,6 +26,7 @@ CREATE TABLE "Songs"(
 "AlbumId" INTEGER REFERENCES "Albums" ("Id")
 );
 
+-- insert bands
 INSERT INTO "Bands" ("Name", "CountryOfOrigin", "NumberOfMembers", "Website", "Genre", "IsSigned", "ContactName")
 VALUES ('ABBA', 'Sweden', 4, 'abba.com', 'pop', true, 'Tina' );
 
@@ -42,6 +44,34 @@ VALUES ('Garbage', 'US', 4, 'garbage.com', 'rock', true, 'Barb' );
 
 INSERT INTO "Bands" ("Name", "CountryOfOrigin", "NumberOfMembers", "Website", "Genre", "IsSigned", "ContactName")
 VALUES ('The Runaways', 'US', 9 , 'runaways.com', 'rock', false, 'Barb' );
+
+-- insert albums
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('Spice', false, '1996-09-19', 8);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('Spiceworld', false, '1997-11-01', 8);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('CrazySexyCool', false, '1994-11-15', 9);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('The Writings on the Wall', false, '1999-07-27', 11);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('Survivor', false, '2001-04-25', 11);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('Arrival', false, '1976-10-11', 10);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('ABBA', false, '1975-04-21', 10);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('The Runaways', false, '1976-06-01', 13);
+
+INSERT INTO "Albums" ("Title", "IsExplicit", "ReleaseDate", "BandId")
+VALUES ('Beautiful Garbage', false, '2001-10-01', 12);
 
 
 
