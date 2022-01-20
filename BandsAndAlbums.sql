@@ -16,3 +16,12 @@ CREATE TABLE "Albums"(
 "ReleaseDate" DATE, 
 "BandId" INTEGER REFERENCES "Bands" ("Id")
 );
+
+CREATE TABLE "Songs"(
+ "Id" SERIAL PRIMARY KEY,
+"TrackNumber" INTEGER,
+"Title" TEXT,
+"Duration" TEXT,
+"AlbumId" INTEGER REFERENCES "Albums" ("Id")
+);
+
