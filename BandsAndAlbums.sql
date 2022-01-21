@@ -107,4 +107,35 @@ VALUES (1, 'Wannabe', '2:53', 1);
 INSERT INTO "Songs" ("TrackNumber", "Title", "Duration", "AlbumId")
 VALUES (10, 'The Lady is a Vamp', '3:10', 2);
 
+-- View all the bands
+SELECT * FROM "Bands";
 
+-- Let a band go (update isSigned to false)
+UPDATE "Bands"
+SET "IsSigned" = false
+WHERE "Name" = 'Garbage';
+
+-- Resign a band (update isSigned to true)
+UPDATE "Bands"
+SET "IsSigned" = true 
+WHERE "Name" = 'TLC';
+
+-- Given a band name, view all their albums
+SELECT "Bands"."Name", "Albums"."Title"
+FROM "Albums"
+JOIN "Bands" ON "Albums"."BandId" = "Bands"."Id"
+WHERE "Bands"."Name" = 'ABBA' OR "Bands"."Name" = 'Spice Girls';
+
+-- View all albums (and their associated songs) ordered by ReleaseDate
+SELECT "Albums"."ReleaseDate", "Albums"."Title", "Songs"."Title"
+FROM "Songs"
+JOIN "Albums" ON "Songs"."AlbumId"= "Albums"."Id"
+ORDER BY "Albums"."ReleaseDate" ASC;
+
+-- View all bands that are signed
+SELECT "Bands"."Name", "Bands"."IsSigned"
+FROM "Bands" WHERE "Bands"."IsSigned" = true;
+
+-- View all bands that are not signed
+SELECT "Bands"."Name", "Bands"."IsSigned"
+FROM "Bands" WHERE "Bands"."IsSigned" = false;
