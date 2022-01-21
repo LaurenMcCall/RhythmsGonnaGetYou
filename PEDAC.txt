@@ -1,0 +1,40 @@
+PROBLEM--
+Create a menu system that shows the following options 
+to the user until they choose to quit your program:
+
+EXAMPLE--
+
+Data--
+Methods
+- DisplayGreeting
+-
+Classes
+List of bands
+List of albums
+LINQ
+
+ALGORITHM--
+Display Menu
+- DisplayGreeting
+Add a new band
+- add to list Bands
+View all the bands
+- foreach loop 
+Add an album for a band
+- add to list Albums in Bands?
+Add a song to an album
+- add to list Songs in Albums?
+Let a band go (update isSigned to false)
+- Update 
+Resign a band (update isSigned to true)
+- Update 
+Prompt for a band name and view all their albums
+- foreach loop nested?
+View all albums ordered by ReleaseDate
+- foreach loop
+View all bands that are signed
+- foreach loop
+View all bands that are not signed
+- foreach loop
+Quit the program
+- break;

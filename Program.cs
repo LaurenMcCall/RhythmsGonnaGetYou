@@ -6,6 +6,9 @@ namespace RhythmsGonnaGetYou
     {
         static void Main(string[] args)
         {
+            var context = new RhythmsGonnaGetYouContext();
+
+
         }
     }
 }
