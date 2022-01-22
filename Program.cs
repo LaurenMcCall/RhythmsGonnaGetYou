@@ -18,22 +18,27 @@ namespace RhythmsGonnaGetYou
             Console.WriteLine("");
             Console.WriteLine("Please make a selection: ");
             Console.WriteLine("☆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━☆");
-            Console.WriteLine("");
-
-
-
 
             // Add a new band
-            // View all the bands
             // Add an album for a band
             // Add a song to an album
-            // Let a band go(update isSigned to false)
-            // Resign a band(update isSigned to true)
+            Console.WriteLine("[A]dd a new album, band, or song ");
+
+            // View all the bands
             // Prompt for a band name and view all their albums
             // View all albums ordered by ReleaseDate
             // View all bands that are signed
             // View all bands that are not signed
+            Console.WriteLine("[V]iew album and band info ");
+
+            // Let a band go(update isSigned to false)
+            // Resign a band(update isSigned to true)
+            Console.WriteLine("[U]pdate signed status of a band ");
+
             // Quit the program
+            Console.WriteLine("[Q]uit ");
+            Console.WriteLine("☆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━☆");
+            Console.WriteLine("");
         }
 
         public static string PromptForString(string prompt)
