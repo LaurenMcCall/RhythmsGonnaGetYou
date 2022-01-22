@@ -14,8 +14,9 @@ List of albums
 LINQ
 
 ALGORITHM--
-Display Menu
 - DisplayGreeting
+- DisplayMenu
+Prompt user for string
 Add a new band
 - add to list Bands
 View all the bands
