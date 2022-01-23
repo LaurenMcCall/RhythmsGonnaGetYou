@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace RhythmsGonnaGetYou
 {
@@ -7,18 +8,23 @@ namespace RhythmsGonnaGetYou
         static void DisplayGreeting()
         {
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("         Welcome to the Music Database   ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～");
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         static void DisplayMenu()
         {
             Console.WriteLine("");
-            Console.WriteLine("Please make a selection: ");
+            Console.WriteLine("PLEASE MAKE A SELECTION: ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("☆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━☆");
-
+            Console.ForegroundColor = ConsoleColor.White;
             // Add a new band
             // Add an album for a band
             // Add a song to an album
@@ -31,13 +37,15 @@ namespace RhythmsGonnaGetYou
             // View all bands that are not signed
             Console.WriteLine("[V]iew album and band info ");
 
-            // Let a band go(update isSigned to false)
-            // Resign a band(update isSigned to true)
+            // Let a band go (update isSigned to false)
+            // Resign a band (update isSigned to true)
             Console.WriteLine("[U]pdate signed status of a band ");
 
             // Quit the program
             Console.WriteLine("[Q]uit ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("☆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━☆");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("");
         }
 
@@ -73,7 +81,58 @@ namespace RhythmsGonnaGetYou
 
             DisplayGreeting();
 
-            DisplayMenu();
+            var bandCount = context.Bands.Count();
+            Console.WriteLine($"There are {bandCount} bands. ");
+
+            var keepGoing = true;
+
+            while (keepGoing)
+            {
+                DisplayMenu();
+
+
+                var choice = Console.ReadLine().ToUpper();
+                Console.WriteLine("");
+
+                switch (choice)
+                {
+                    case "A":
+                        // Add a new band
+                        // Add an album for a band
+                        // Add a song to an album
+                        break;
+
+                    case "V":
+                        // View all the bands
+                        foreach (var band in context.Bands)
+                        {
+                            Console.WriteLine(band.Name);
+                            Console.WriteLine("");
+                        }
+                        // Prompt for a band name and view all their albums
+                        // View all albums ordered by ReleaseDate
+                        // View all bands that are signed
+                        // View all bands that are not signed
+                        break;
+
+                    case "U":
+                        // Let a band go (update isSigned to false)
+                        // Resign a band (update isSigned to true)
+                        break;
+
+                    case "Q":
+                        keepGoing = false;
+                        break;
+
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("");
+                        Console.WriteLine("❗That is not a valid selection. Try again❗");
+                        break;
+                }
+
+                break;
+            }
         }
     }
 }
