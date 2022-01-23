@@ -6,18 +6,7 @@ namespace RhythmsGonnaGetYou
 {
     class Program
     {
-        static void DisplayGreeting()
-        {
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("         Welcome to the Music Database   ");
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～♪ ～*～");
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.White;
-        }
+
 
         static void DisplayMenu()
         {
@@ -80,7 +69,7 @@ namespace RhythmsGonnaGetYou
 
             var context = new RhythmsGonnaGetYouContext();
 
-            DisplayGreeting();
+            MusicDatabase.DisplayGreeting();
 
             var keepGoing = true;
 
@@ -118,20 +107,36 @@ namespace RhythmsGonnaGetYou
                         {
                             var bandCount = context.Bands.Count();
                             Console.WriteLine($"There are {bandCount} bands in the database: ");
+                            Console.WriteLine("");
                             foreach (var band in context.Bands)
                             {
                                 Console.WriteLine(band.Name);
                             }
+                            Console.WriteLine("");
                         }
                         // Prompt for a band name and view all their albums
                         else if (viewSelection == "I")
                         {
-                            var givenBandName = PromptForString("Which band's albums would you like to view? \n");
-                            var viewAlbumsFromGivenName = context.Albums.Include(album => album.Band).Where(album => album.Band == givenBandName);
-                            foreach (var viewAlbum in viewAlbumsFromGivenName)
+                            var bandName = PromptForString("Type a band name: \n").ToUpper();
+                            var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
+
+                            var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == foundBand);
+
+                            if (bandName == null)
                             {
-                                Console.WriteLine(viewAlbum.Title);
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("");
+                                Console.WriteLine("❗No match found❗");
                             }
+                            else
+                            {
+                                foreach (var album in albumsOfFoundBand)
+                                {
+                                    Console.WriteLine("");
+                                    Console.WriteLine(album.Title);
+                                }
+                            }
+
                         }
                         // View all albums ordered by ReleaseDate 
                         // View all bands that are signed SIGNED BANDS
