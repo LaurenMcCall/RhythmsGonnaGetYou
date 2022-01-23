@@ -103,16 +103,35 @@ namespace RhythmsGonnaGetYou
                         break;
 
                     case "V":
+
+                        Console.WriteLine("SELECT WHAT YOU'D LIKE TO VIEW: ");
+                        Console.WriteLine("[B]ands ");
+                        Console.WriteLine("[I]nsert band name and view all their albums ");
+                        Console.WriteLine("[A]lbums ordered by release date ");
+                        Console.WriteLine("[S]igned bands ");
+                        Console.WriteLine("[U]nsigned bands ");
+                        Console.WriteLine("");
+
+                        var viewSelection = Console.ReadLine().ToUpper();
+                        Console.WriteLine("");
+
                         // View all the bands
-                        foreach (var band in context.Bands)
+                        if (viewSelection == "B")
                         {
-                            Console.WriteLine(band.Name);
-                            Console.WriteLine("");
+                            foreach (var band in context.Bands)
+                            {
+                                Console.WriteLine(band.Name);
+                            }
                         }
                         // Prompt for a band name and view all their albums
-                        // View all albums ordered by ReleaseDate
-                        // View all bands that are signed
-                        // View all bands that are not signed
+                        else if (viewSelection == "I")
+                        {
+                            var insertBandNameToViewAlbums = PromptForString("Which band's albums would you like to view? ");
+
+                        }
+                        // View all albums ordered by ReleaseDate 
+                        // View all bands that are signed SIGNED BANDS
+                        // View all bands that are not signed UNSIGNED BANDS
                         break;
 
                     case "U":
