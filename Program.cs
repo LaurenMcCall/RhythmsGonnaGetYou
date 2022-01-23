@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace RhythmsGonnaGetYou
 {
@@ -81,9 +82,6 @@ namespace RhythmsGonnaGetYou
 
             DisplayGreeting();
 
-            var bandCount = context.Bands.Count();
-            Console.WriteLine($"There are {bandCount} bands. ");
-
             var keepGoing = true;
 
             while (keepGoing)
@@ -118,6 +116,8 @@ namespace RhythmsGonnaGetYou
                         // View all the bands
                         if (viewSelection == "B")
                         {
+                            var bandCount = context.Bands.Count();
+                            Console.WriteLine($"There are {bandCount} bands in the database: ");
                             foreach (var band in context.Bands)
                             {
                                 Console.WriteLine(band.Name);
@@ -126,8 +126,12 @@ namespace RhythmsGonnaGetYou
                         // Prompt for a band name and view all their albums
                         else if (viewSelection == "I")
                         {
-                            var insertBandNameToViewAlbums = PromptForString("Which band's albums would you like to view? ");
-
+                            var givenBandName = PromptForString("Which band's albums would you like to view? \n");
+                            var viewAlbumsFromGivenName = context.Albums.Include(album => album.Band).Where(album => album.Band == givenBandName);
+                            foreach (var viewAlbum in viewAlbumsFromGivenName)
+                            {
+                                Console.WriteLine(viewAlbum.Title);
+                            }
                         }
                         // View all albums ordered by ReleaseDate 
                         // View all bands that are signed SIGNED BANDS
