@@ -90,6 +90,14 @@ namespace RhythmsGonnaGetYou
                 switch (choice)
                 {
                     case "A":
+                        Console.WriteLine("What would you like to add? ");
+                        Console.WriteLine("[B]and");
+                        Console.WriteLine("[A]lbum for a band ");
+                        Console.WriteLine("[S]ong to an album ");
+                        Console.WriteLine("");
+
+
+
                         // Add a new band
                         // Add an album for a band
                         // Add a song to an album
