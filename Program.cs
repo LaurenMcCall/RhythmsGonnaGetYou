@@ -64,6 +64,13 @@ namespace RhythmsGonnaGetYou
             }
         }
 
+        static Band SearchForBandName(RhythmsGonnaGetYouContext context)
+        {
+            var bandName = PromptForString("Type a band name: \n").ToUpper();
+            var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
+            return foundBand;
+        }
+
         static void Main(string[] args)
         {
 
@@ -76,7 +83,6 @@ namespace RhythmsGonnaGetYou
             while (keepGoing)
             {
                 DisplayMenu();
-
 
                 var choice = Console.ReadLine().ToUpper();
                 Console.WriteLine("");
@@ -117,12 +123,13 @@ namespace RhythmsGonnaGetYou
                         // Prompt for a band name and view all their albums
                         else if (viewSelection == "I")
                         {
-                            var bandName = PromptForString("Type a band name: \n").ToUpper();
-                            var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
+                            // search for band name 
+                            // var bandName = PromptForString("Type a band name: \n").ToUpper();
+                            // var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
+                            Band bandNameToViewAlbumsOf = SearchForBandName(context);
+                            var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == bandNameToViewAlbumsOf);
 
-                            var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == foundBand);
-
-                            if (bandName == null)
+                            if (bandNameToViewAlbumsOf == null)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("");
