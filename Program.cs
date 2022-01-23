@@ -132,8 +132,6 @@ namespace RhythmsGonnaGetYou
                         else if (viewSelection == "I")
                         {
                             // search for band name 
-                            // var bandName = PromptForString("Type a band name: \n").ToUpper();
-                            // var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
                             Band bandNameToViewAlbumsOf = SearchForBandName(context);
                             var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == bandNameToViewAlbumsOf);
 
@@ -154,8 +152,36 @@ namespace RhythmsGonnaGetYou
 
                         }
                         // View all albums ordered by ReleaseDate 
+
                         // View all bands that are signed SIGNED BANDS
+                        else if (viewSelection == "S")
+                        {
+                            Console.WriteLine("Signed bands: ");
+                            Console.WriteLine("");
+                            foreach (var band in context.Bands)
+                            {
+                                if (band.IsSigned == true)
+                                {
+                                    Console.WriteLine(band.Name);
+                                }
+                            }
+                            Console.WriteLine("");
+                        }
+
                         // View all bands that are not signed UNSIGNED BANDS
+                        else if (viewSelection == "U")
+                        {
+                            Console.WriteLine("Unsigned bands: ");
+                            Console.WriteLine("");
+                            foreach (var band in context.Bands)
+                            {
+                                if (band.IsSigned == false)
+                                {
+                                    Console.WriteLine(band.Name);
+                                }
+                            }
+                            Console.WriteLine("");
+                        }
                         break;
 
                     case "U":
