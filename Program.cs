@@ -66,8 +66,9 @@ namespace RhythmsGonnaGetYou
 
         static Band SearchForBandName(RhythmsGonnaGetYouContext context)
         {
-            var bandName = PromptForString("Type a band name: \n").ToUpper();
+            var bandName = PromptForString("What is the band name: \n").ToUpper();
             var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
+            Console.WriteLine("");
             return foundBand;
         }
 
@@ -133,7 +134,7 @@ namespace RhythmsGonnaGetYou
                         {
                             // search for band name 
                             Band bandNameToViewAlbumsOf = SearchForBandName(context);
-                            var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == bandNameToViewAlbumsOf);
+                            var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == bandNameToViewAlbumsOf).OrderBy(album => album.Title);
 
                             if (bandNameToViewAlbumsOf == null)
                             {
@@ -145,13 +146,22 @@ namespace RhythmsGonnaGetYou
                             {
                                 foreach (var album in albumsOfFoundBand)
                                 {
-                                    Console.WriteLine("");
                                     Console.WriteLine(album.Title);
                                 }
+                                Console.WriteLine("");
                             }
 
                         }
                         // View all albums ordered by ReleaseDate 
+                        else if (viewSelection == "A")
+                        {
+                            var viewAlbumByReleaseDate = context.Albums.OrderBy(album => album.ReleaseDate);
+                            Console.WriteLine("Albums by release date: ");
+                            foreach (var album in viewAlbumByReleaseDate)
+                            {
+                                Console.WriteLine($"{album.ReleaseDate} — {album.Title}");
+                            }
+                        }
 
                         // View all bands that are signed SIGNED BANDS
                         else if (viewSelection == "S")
@@ -180,6 +190,12 @@ namespace RhythmsGonnaGetYou
                                     Console.WriteLine(band.Name);
                                 }
                             }
+                            Console.WriteLine("");
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("❗No match found❗");
                             Console.WriteLine("");
                         }
                         break;
