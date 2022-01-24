@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
@@ -119,7 +120,20 @@ namespace RhythmsGonnaGetYou
                         // Add a new band
                         if (addChoice == "B")
                         {
+                            // var isGoodName = true;
+                            // do 
+                            // {
                             var name = PromptForString("Name of new band: ");
+                            // var bandNameTaken = context.Bands.Any(bandName => bandName.Name == name);
+                            // if (bandNameTaken == true)
+                            // {
+                            //     Console.WriteLine($"{name} is already in the database. Please input a different band name. ");
+                            // }
+                            // else
+                            // {
+                            //     break;
+                            // }
+                            // }while (isGoodName != true);
                             var countryOfOrigin = PromptForString("Country of origin: ");
                             var numberOfMembers = PromptForInteger("Number of members in band: ");
                             var website = PromptForString("Website: ");
@@ -151,6 +165,31 @@ namespace RhythmsGonnaGetYou
                             context.SaveChanges();
                         }
                         // Add an album for a band
+                        else if (addChoice == "A")
+                        {
+                            var title = PromptForString("Title of new album: ");
+                            var isExplicit = PromptForString("Is the album explicit? [Y]es or [N]o? ");
+                            if (isExplicit == "Y")
+                            {
+                                isExplicit = "true";
+                            }
+                            else if (isExplicit == "N")
+                            {
+                                isExplicit = "false";
+                            }
+                            Console.WriteLine("Release date of the album (MM/DD/YYYY)");
+                            DateTime releaseDate = DateTime.ParseExact(Console.ReadLine(), "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            var bandId = PromptForInteger("Band Id: ");
+
+                            var newAlbum = new Album
+                            {
+                                Title = title,
+                                IsExplicit = bool.Parse(isExplicit),
+                                ReleaseDate = releaseDate,
+                                BandId = bandId
+                            };
+                        }
+
                         // Add a song to an album
                         break;
 
