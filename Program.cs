@@ -42,11 +42,23 @@ namespace RhythmsGonnaGetYou
         public static string PromptForString(string prompt)
         {
             Console.Write(prompt);
-            var userInput = Console.ReadLine();
+            var userInput = Console.ReadLine().ToUpper();
 
             return userInput;
         }
-
+        // public bool PromptForBoolean(string prompt)
+        // {
+        //     switch (prompt.ToUpper())
+        //     {
+        //         case "Y":
+        //             return true;
+        //         case "N":
+        //             return false;
+        //         default:
+        //             Console.WriteLine("That is not a valid input. ");
+        //             break;
+        //     }
+        // }
         public static int PromptForInteger(string prompt)
         {
             Console.Write(prompt);
@@ -64,10 +76,16 @@ namespace RhythmsGonnaGetYou
             }
         }
 
+        public static void NoMatchFound()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("❗No match found❗");
+        }
+
         static Band SearchForBandName(RhythmsGonnaGetYouContext context)
         {
             var bandName = PromptForString("What is the band name: \n").ToUpper();
-            var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
+            var foundBand = context.Bands.First(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
             Console.WriteLine("");
             return foundBand;
         }
@@ -97,15 +115,46 @@ namespace RhythmsGonnaGetYou
                         Console.WriteLine("[S]ong to an album ");
                         Console.WriteLine("");
 
-
-
+                        var addChoice = Console.ReadLine().ToUpper();
                         // Add a new band
+                        if (addChoice == "B")
+                        {
+                            var name = PromptForString("Name of new band: ");
+                            var countryOfOrigin = PromptForString("Country of origin: ");
+                            var numberOfMembers = PromptForInteger("Number of members in band: ");
+                            var website = PromptForString("Website: ");
+                            var genre = PromptForString("Genre: ");
+                            var isSigned = (PromptForString("Is the band signed? [Y]es or [N]o? "));
+                            if (isSigned == "Y")
+                            {
+                                isSigned = "true";
+                            }
+                            else if (isSigned == "N")
+                            {
+                                isSigned = "false";
+                            }
+                            var contactName = PromptForString("Contact name: ");
+                            Console.WriteLine("");
+
+                            var newBand = new Band
+                            {
+                                Name = name,
+                                CountryOfOrigin = countryOfOrigin,
+                                NumberOfMembers = numberOfMembers,
+                                Website = website,
+                                Genre = genre,
+                                IsSigned = bool.Parse(isSigned),
+                                ContactName = contactName
+                            };
+
+                            context.Bands.Add(newBand);
+                            context.SaveChanges();
+                        }
                         // Add an album for a band
                         // Add a song to an album
                         break;
 
                     case "V":
-
                         Console.WriteLine("SELECT WHAT YOU'D LIKE TO VIEW: ");
                         Console.WriteLine("[B]ands ");
                         Console.WriteLine("[I]nsert band name and view all their albums ");
@@ -134,13 +183,12 @@ namespace RhythmsGonnaGetYou
                         {
                             // search for band name 
                             Band bandNameToViewAlbumsOf = SearchForBandName(context);
+                            // search for albums of given band name
                             var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == bandNameToViewAlbumsOf).OrderBy(album => album.Title);
 
                             if (bandNameToViewAlbumsOf == null)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("");
-                                Console.WriteLine("❗No match found❗");
+                                NoMatchFound();
                             }
                             else
                             {
@@ -150,7 +198,6 @@ namespace RhythmsGonnaGetYou
                                 }
                                 Console.WriteLine("");
                             }
-
                         }
                         // View all albums ordered by ReleaseDate 
                         else if (viewSelection == "A")
@@ -162,7 +209,6 @@ namespace RhythmsGonnaGetYou
                                 Console.WriteLine($"{album.ReleaseDate} — {album.Title}");
                             }
                         }
-
                         // View all bands that are signed SIGNED BANDS
                         else if (viewSelection == "S")
                         {
@@ -194,9 +240,7 @@ namespace RhythmsGonnaGetYou
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("❗No match found❗");
-                            Console.WriteLine("");
+                            NoMatchFound();
                         }
                         break;
 
