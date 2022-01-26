@@ -85,8 +85,8 @@ namespace RhythmsGonnaGetYou
 
         static Band SearchForBandName(RhythmsGonnaGetYouContext context)
         {
-            var bandName = PromptForString("What is the band name: \n").ToUpper();
-            var foundBand = context.Bands.FirstOrDefault(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
+            var bandName = PromptForString("Band name: \n").ToUpper();
+            var foundBand = context.Bands.First(band => band.Name.ToUpper().Contains(bandName.ToUpper()));
             Console.WriteLine("");
             return foundBand;
         }
@@ -241,18 +241,28 @@ namespace RhythmsGonnaGetYou
                         Console.WriteLine("[S]ign a band ");
                         Console.WriteLine("");
 
-                        var updateChoice = Console.ReadLine();
+                        var updateChoice = Console.ReadLine().ToUpper();
                         // Let a band go (update isSigned to false)
                         if (updateChoice == "D")
+
+                        // search for albums of given band name
+                        // var albumsOfFoundBand = context.Albums.Include(album => album.Band).Where(album => album.Band == bandNameToViewAlbumsOf).OrderBy(album => album.Title);
                         {
+                            // QUESTION
                             Band bandNameToUpdateSignedStatus = SearchForBandName(context);
-                            if (bandNameToUpdateSignedStatus != null)
+                            // search for albums of given band name
+                            // var signedStatusOfFoundBand = context.Bands.Any(band => band.IsSigned == false);
+                            if (bandNameToUpdateSignedStatus != null && bandNameToUpdateSignedStatus.IsSigned == true)
                             {
-                                Console.WriteLine($"{bandNameToUpdateSignedStatus} is no longer signed. ");
+                                Console.WriteLine($"{bandNameToUpdateSignedStatus.Name} is no longer signed. ");
                                 bandNameToUpdateSignedStatus.IsSigned = false;
                             }
-                            context.Bands.Add(bandNameToUpdateSignedStatus);
+                            else
+                            {
+                                Console.WriteLine($"{bandNameToUpdateSignedStatus.Name} isn't signed. Damn, that hurts.");
+                            }
                             context.SaveChanges();
+
                         }
                         // Resign a band (update isSigned to true)
                         if (updateChoice == "S")
@@ -263,7 +273,6 @@ namespace RhythmsGonnaGetYou
                                 Console.WriteLine($"{bandNameToUpdateSignedStatus} is now signed. ");
                                 bandNameToUpdateSignedStatus.IsSigned = true;
                             }
-                            context.Bands.Add(bandNameToUpdateSignedStatus);
                             context.SaveChanges();
                         }
                         break;
